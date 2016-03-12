@@ -88,7 +88,7 @@ namespace Complete
             }
         }
 
-		public bool isLeft = false,isRight = false,isTop = false,isBottom= false;
+		private bool isLeft = false,isRight = false,isTop = false,isBottom= false;
 
 		public void setLeft(){
 			isLeft = true;
