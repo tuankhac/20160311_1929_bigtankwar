@@ -27,7 +27,7 @@ namespace Complete
         {
             // When the tank is turned on, reset the launch force and the UI
             m_CurrentLaunchForce = m_MinLaunchForce;
-           // m_AimSlider.value = m_MinLaunchForce;
+            m_AimSlider.value = m_MinLaunchForce;
         }
 
 
@@ -39,29 +39,30 @@ namespace Complete
             // The rate that the launch force charges up is the range of possible forces by the max charge time.
             m_ChargeSpeed = (m_MaxLaunchForce - m_MinLaunchForce) / m_MaxChargeTime;
         }
+
 		void Update(){
 			//keyboardFire ();
 			//touchFire ();
 			if(isDown){
 				touchFire ();
+
+				Debug.Log ("m_AimSlider.value" + m_AimSlider.value);
 			}
 			if (isUp){
-				Fire ();
 				isUp = false;
+				if (!m_Fired) Fire ();
 			}
-
-
 		}
+
 		private void touchFire(){
 			// The slider should have a default value of the minimum launch force.
-			//m_AimSlider.value = m_MinLaunchForce;
+
 			// If the max force has been exceeded and the shell hasn't yet been launched...
 			if (m_CurrentLaunchForce >= m_MaxLaunchForce && !m_Fired)
 			{
 				// ... use the max force and launch the shell.
 				m_CurrentLaunchForce = m_MaxLaunchForce;
 				Fire ();
-
 			}
 
 			// Otherwise, if the fire button has just started being pressed...
@@ -82,7 +83,7 @@ namespace Complete
 				// Increment the launch force and update the slider.
 				m_CurrentLaunchForce += m_ChargeSpeed * Time.deltaTime;
 
-				//m_AimSlider.value = m_CurrentLaunchForce;
+				m_AimSlider.value = m_CurrentLaunchForce;
 
 			}
 			// Otherwise, if the fire button is released and the shell hasn't been launched yet...
