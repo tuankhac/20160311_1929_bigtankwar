@@ -1,24 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class View : MonoBehaviour {
+public class View : MonoBehaviour
+{
 	public GameObject player;
 	public GameObject pointFollow;
 	public GameObject pointLookAt;
-	public Vector3 speed = new Vector3 ( 4.0f, 2.0f, 1.0f );
+	public Vector3 speed = new Vector3 (4.0f, 2.0f, 1.0f);
 
-	public void Start () {
+	public void Start ()
+	{
 		pointFollow.transform.position = this.transform.position;
 	}
 
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 		FollowPosition ();
 
 		this.transform.LookAt (pointLookAt.transform);
 	}
 
-	void FollowPosition () {
+	void FollowPosition ()
+	{
 		Vector3 _nextPosition = pointFollow.transform.position;
 
 		_nextPosition.x = Mathf.Lerp (this.transform.position.x, _nextPosition.x, speed.x * Time.deltaTime);
