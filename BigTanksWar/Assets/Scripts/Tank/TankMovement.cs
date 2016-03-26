@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-
 namespace Complete
 {
 	public class TankMovement: MonoBehaviour
@@ -18,10 +17,10 @@ namespace Complete
 		// The amount by which the pitch of the engine noises can vary.
 
 		//for enemy
-		public Transform player, enemy1, enemy2, enemy3, enemy4;
+		//public Transform player, enemy1, enemy2, enemy3, enemy4;
 		Vector3 pointLookAt;
 		float timeUpdate = 0;
-
+		private Generation gen;
 
 		private string m_MovementAxisName;
 		// The name of the input axis for moving forward and back.
@@ -70,6 +69,8 @@ namespace Complete
 
 			// Store the original pitch of the audio source.
 			// m_OriginalPitch = m_MovementAudio.pitch;
+
+			gen = FindObjectOfType (typeof(Generation)) as Generation;
 		}
 
 		private float distance (Vector2 a, Vector2 b)
@@ -87,10 +88,10 @@ namespace Complete
 
 			//for rotate of enemy
 			timeUpdate += Time.deltaTime;
-			if (player) {
-				float dis = distance (new Vector2 (transform.position.x, transform.position.z), new Vector2 (player.position.x, player.position.z));
+			if (gen.player) {
+				float dis = distance (new Vector2 (transform.position.x, transform.position.z), new Vector2 (gen.player.position.x, gen.player.position.z));
 				if (dis < 15)
-					this.transform.LookAt (player);
+					this.transform.LookAt (gen.player);
 				else
 					enemyTurn ();
 
@@ -98,7 +99,10 @@ namespace Complete
 					timeUpdate = 0;
 					//timeWaitUpdate = 0;
 				}
+				enemyMovement ();
 			}
+			//if (gen.player)
+			//	enemyMovement ();
 		}
 
 		IEnumerator WaitTime ()
@@ -113,8 +117,7 @@ namespace Complete
 		{
 			playerTurn ();
 			playerMovement ();
-			if (player)
-				enemyMovement ();
+
 		}
 
 		public void enemyMovement ()
@@ -123,12 +126,13 @@ namespace Complete
 			if (timeUpdate > 2.5 && timeUpdate < 5) {
 				Vector3 movement = new Vector3 (0, 0, 0);
 
-				if (enemy1) {
+				if (gen.enemy1) {
 					movement = transform.forward * Random.Range (1, 5) * Time.deltaTime;
 				}
-				if (enemy2) {
+				if (gen.enemy2) {
 					movement = transform.forward * Random.Range (5, 12) * Time.deltaTime;
 				}
+
 				m_Rigidbody.MovePosition (m_Rigidbody.position + movement);
 			} else if (timeUpdate > 5) {
 				timeUpdate = 0;
@@ -209,14 +213,14 @@ namespace Complete
 			// Determine the number of degrees to be turned based on the input, speed and time between frames.
 			float turn = 0;
 			if (timeUpdate > 0.55 && timeUpdate < 0.95) {
-				if (enemy1)
+				if (gen.enemy1)
 					turn = (Random.Range (0, 3) + m_TurnSpeed) * Time.deltaTime;
-				else if (enemy2)
+				else if (gen.enemy2)
 					turn = (Random.Range (2, 5) + m_TurnSpeed) * Time.deltaTime;
 			} else if (timeUpdate > 4 && timeUpdate < 4.5) {
-				if (enemy1)
+				if (gen.enemy1)
 					turn = (Random.Range (3, 5) + m_TurnSpeed) * Time.deltaTime;
-				else if (enemy2)
+				else if (gen.enemy2)
 					turn = (Random.Range (-2, 1) + m_TurnSpeed) * Time.deltaTime;
 			} else
 				turn = 0;

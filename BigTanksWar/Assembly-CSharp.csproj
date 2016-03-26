@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\Managers\TankManager.cs" />
      <Compile Include="Assets\Scripts\SencesManager.cs" />
      <Compile Include="Assets\Scripts\Shell\ShellExplosion.cs" />
+     <Compile Include="Assets\Scripts\Tank\Generation.cs" />
      <Compile Include="Assets\Scripts\Tank\TankHealth.cs" />
      <Compile Include="Assets\Scripts\Tank\TankMovement.cs" />
      <Compile Include="Assets\Scripts\Tank\TankShooting.cs" />
