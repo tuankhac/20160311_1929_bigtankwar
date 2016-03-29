@@ -5,7 +5,7 @@ namespace Complete
 {
 	public class TankShooting : MonoBehaviour
 	{
-		public int m_PlayerNumber = 1;
+	//	public int m_PlayerNumber = 1;
 		// Used to identify the different players.
 		public Rigidbody m_Shell;
 		// Prefab of the shell.
@@ -24,7 +24,7 @@ namespace Complete
 		// How long the shell can charge for before it is fired at max force.
 
 
-		private string m_FireButton;
+	//	private string m_FireButton;
 		// The input axis that is used for launching shells.
 		protected float m_CurrentLaunchForce;
 		// The force that will be given to the shell when the fire button is released.
@@ -45,7 +45,7 @@ namespace Complete
 		private void Start ()
 		{
 			// The fire axis is based on the player number.
-			m_FireButton = "Fire" + m_PlayerNumber;
+	//		m_FireButton = "Fire" + m_PlayerNumber;
 
 			// The rate that the launch force charges up is the range of possible forces by the max charge time.
 			m_ChargeSpeed = (m_MaxLaunchForce - m_MinLaunchForce) / m_MaxChargeTime;

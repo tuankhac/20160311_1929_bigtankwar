@@ -19,7 +19,7 @@ namespace Complete
 		private bool m_Dead;		// Has the tank been reduced beyond zero health yet?
 
 
-		private void Awake ()
+		private void InitParticle ()
 		{
 			// Instantiate the explosion prefab and get a reference to the particle system on it.
 			m_ExplosionParticles = Instantiate (m_ExplosionPrefab).GetComponent<ParticleSystem> ();
@@ -70,6 +70,8 @@ namespace Complete
 
 		private void OnDeath ()
 		{
+			InitParticle ();
+
 			// Set the flag so that this function is only called once.
 			m_Dead = true;
 
@@ -86,8 +88,6 @@ namespace Complete
 			// Turn the tank off.
 			gameObject.SetActive (false);
 
-			if (gameObject.tag == "Player")
-				;
 		}
 	}
 }
