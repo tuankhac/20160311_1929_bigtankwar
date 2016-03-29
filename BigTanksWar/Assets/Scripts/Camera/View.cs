@@ -10,7 +10,7 @@ public class View : MonoBehaviour
 
 	public void Start ()
 	{
-		pointFollow.transform.position = this.transform.position;
+		//pointFollow.transform.position = this.transform.position;
 	}
 
 	// Update is called once per frame
@@ -26,7 +26,7 @@ public class View : MonoBehaviour
 		Vector3 _nextPosition = pointFollow.transform.position;
 
 		_nextPosition.x = Mathf.Lerp (this.transform.position.x, _nextPosition.x, speed.x * Time.deltaTime);
-		_nextPosition.y = Mathf.Lerp (this.transform.position.y, _nextPosition.y, speed.y * Time.deltaTime);
+		//_nextPosition.y = Mathf.Lerp (this.transform.position.y, _nextPosition.y, speed.y * Time.deltaTime);
 		_nextPosition.z = Mathf.Lerp (this.transform.position.z, _nextPosition.z, speed.z * Time.deltaTime);
 
 		this.transform.position = _nextPosition;

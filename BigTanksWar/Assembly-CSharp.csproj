@@ -47,8 +47,6 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Camera\CameraControl.cs" />
      <Compile Include="Assets\Scripts\Camera\View.cs" />
-     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
-     <Compile Include="Assets\Scripts\Managers\TankManager.cs" />
      <Compile Include="Assets\Scripts\SencesManager.cs" />
      <Compile Include="Assets\Scripts\Shell\ShellExplosion.cs" />
      <Compile Include="Assets\Scripts\Tank\EnemyMovement.cs" />

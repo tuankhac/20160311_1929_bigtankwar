@@ -56,9 +56,9 @@ namespace Complete
 			if (timeUpdate > 2.5 && timeUpdate < 5) {
 				Vector3 movement = new Vector3 (0, 0, 0);
 				if (position == 0) {
-					movement = obj.transform.forward * Random.Range (5, 60) * Time.deltaTime;
-				} else if(position ==1){
-					movement = obj.transform.forward * Random.Range (1, 30) * Time.deltaTime;
+					movement = obj.transform.forward * Random.Range (3, 7) * Time.deltaTime;
+				} else if(position == 1){
+					movement = obj.transform.forward * Random.Range (2, 7) * Time.deltaTime;
 				}
 
 				rigid.MovePosition (rigid.position + movement);

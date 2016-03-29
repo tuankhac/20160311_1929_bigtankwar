@@ -6,7 +6,7 @@ namespace Complete
 	public class TankMovement: MonoBehaviour
 	{
 		
-		public int m_PlayerNumber = 1;
+		//public int m_PlayerNumber = 1;
 		// Used to identify which tank belongs to which player.  This is set by this tank's manager.
 		public float m_Speed = 12f;
 		// How fast the tank moves forward and back.
@@ -18,9 +18,9 @@ namespace Complete
 		public float m_PitchRange = 0.2f;
 		// The amount by which the pitch of the engine noises can vary.
 
-		private string m_MovementAxisName;
+	//	private string m_MovementAxisName;
 		// The name of the input axis for moving forward and back.
-		private string m_TurnAxisName;
+	//	private string m_TurnAxisName;
 		// The name of the input axis for turning.
 		protected Rigidbody m_Rigidbody;
 		// Reference used to move the tank.
@@ -62,8 +62,8 @@ namespace Complete
 		private void Start ()
 		{
 			// The axes names are based on player number.
-			m_MovementAxisName = "Vertical" + m_PlayerNumber;
-			m_TurnAxisName = "Horizontal" + m_PlayerNumber;
+		//	m_MovementAxisName = "Vertical" + m_PlayerNumber;
+		//	m_TurnAxisName = "Horizontal" + m_PlayerNumber;
 
 			// Store the original pitch of the audio source.
 			m_OriginalPitch = m_MovementAudio.pitch;
@@ -76,26 +76,27 @@ namespace Complete
 			return Mathf.Sqrt ((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
 		}
 
-		public void Update ()
-		{
+//		public void Update ()
+//		{
 			// Store the value of both input axes.
-			m_MovementInputValue = Input.GetAxis (m_MovementAxisName);
-			m_TurnInputValue = Input.GetAxis (m_TurnAxisName);
-		}
+	//		m_MovementInputValue = Input.GetAxis (m_MovementAxisName);
+	//		m_TurnInputValue = Input.GetAxis (m_TurnAxisName);
+//		}
 
 		public void EngineAudio ()
 		{
 			// If there is no input (the tank is stationary)...
-			if (Mathf.Abs (m_MovementInputValue) < 0.1f && Mathf.Abs (m_TurnInputValue) < 0.1f) {
+//			if (Mathf.Abs (m_MovementInputValue) < 0.1f && Mathf.Abs (m_TurnInputValue) < 0.1f) {
 				// ... and if the audio source is currently playing the driving clip...
-				if (m_MovementAudio.clip == m_EngineDriving)
-					 {
+//				if (m_MovementAudio.clip == m_EngineDriving)
+//					 {
 				// ... change the clip to idling and play it.
-					     m_MovementAudio.clip = m_EngineIdling;
-					      m_MovementAudio.pitch = Random.Range (m_OriginalPitch - m_PitchRange, m_OriginalPitch + m_PitchRange);
-				     m_MovementAudio.Play ();
-				  }
-			} else {
+//					     m_MovementAudio.clip = m_EngineIdling;
+//					      m_MovementAudio.pitch = Random.Range (m_OriginalPitch - m_PitchRange, m_OriginalPitch + m_PitchRange);
+//				     m_MovementAudio.Play ();
+//				  }
+//			} else 
+			{
 				// Otherwise if the tank is moving and if the idling clip is currently playing...
 				  if (m_MovementAudio.clip == m_EngineIdling)
 				  {
