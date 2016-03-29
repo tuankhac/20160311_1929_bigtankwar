@@ -86,8 +86,7 @@ namespace Complete
 			// Turn the tank off.
 			gameObject.SetActive (false);
 
-			if (gameObject.tag == "Player")
-				;
+
 		}
 	}
 }
