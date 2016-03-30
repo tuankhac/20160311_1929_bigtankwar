@@ -81,13 +81,13 @@ public class GameController : MonoBehaviour {
 		//activate the gameover canvas
 		GameOverCanvas.SetActive (true);
 		//show the score value on ScoreText
-		ScoreText.text = "Score:" + score.ToString();
+		ScoreText.text = "Your Score: " + score.ToString();
 		//if score is greater than highscore change the stored value of highscore
 		if (score > highscore) {
 			PlayerPrefs.SetInt ("HighScore", score);
 		}
 		//show highscore value on HighScoreText
 		highscore = PlayerPrefs.GetInt ("HighScore",0);
-		HighScoreText.text = "Highscore:" + highscore.ToString ();
+		HighScoreText.text = "High Score: " + highscore.ToString ();
 	}
 }

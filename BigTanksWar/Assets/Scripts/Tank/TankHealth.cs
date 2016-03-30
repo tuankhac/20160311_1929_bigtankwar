@@ -45,6 +45,9 @@ namespace Complete{
 				if (other.tag == "Player") {
 					GameController.isPause = true;
 					GameObject.FindGameObjectWithTag("GameController").SendMessage("GameOver");
+
+					GameObject canvasControl = GameObject.FindGameObjectWithTag ("CanvasControl");
+					canvasControl.SetActive (false);
 				}
 				if (other.tag == "Enemy") {
 					GameObject.FindGameObjectWithTag("GameController").SendMessage("AddScore");
@@ -79,6 +82,8 @@ namespace Complete{
 
 			// Turn the tank off.
 			gameObject.SetActive(false);
+
+
 		}
 	}
 }
