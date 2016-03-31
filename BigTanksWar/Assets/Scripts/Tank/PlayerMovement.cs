@@ -51,11 +51,11 @@ namespace Complete{
 			if (timeUpdate > 2.5 && timeUpdate < 5) {
 				Vector3 movement = new Vector3(0, 0, 0);
 				if (position == 0) {
-					movement = obj.transform.forward * Random.Range(3, 7) * Time.deltaTime;
+					movement = obj.transform.forward * Random.value/10  ;
 				} else if (position == 1) {
-					movement = obj.transform.forward * Random.Range(2, 7) * Time.deltaTime;
+					movement = obj.transform.forward * Random.value/10  ;
 				} else if (position == 2) {
-					movement = obj.transform.forward * Random.Range(4, 9) * Time.deltaTime;
+					movement = obj.transform.forward * Random.value/10 ;
 				}
 
 				rigid.MovePosition(rigid.position + movement);
@@ -70,19 +70,19 @@ namespace Complete{
 			Quaternion turnRotation;
 			if (timeUpdate > 0.55 && timeUpdate < 0.95) {
 				if (position == 0) {
-					turn = (Random.Range(2, 5) + m_TurnSpeed) * Time.deltaTime;
+					turn = (Random.Range(2, 5) * m_TurnSpeed) * Time.deltaTime;
 				} else if (position == 1) {
-					turn = (Random.Range(-2, 2) + m_TurnSpeed) * Time.deltaTime;
+					turn = (Random.Range(-2, 2) * m_TurnSpeed) * Time.deltaTime;
 				} else if (position == 2) {
-					turn = (Random.Range(-2, 4) + m_TurnSpeed) * Time.deltaTime;
+					turn = (Random.Range(-2, 4) * m_TurnSpeed) * Time.deltaTime;
 				}
-			} else if (timeUpdate > 4 && timeUpdate < 4.5) {
+			} else if (timeUpdate > 10 && timeUpdate < 10.5) {
 				if (position == 0) {
-					turn = (Random.Range(-3, 1) + m_TurnSpeed) * Time.deltaTime;
+					turn = (Random.Range(-3, 1) * m_TurnSpeed) * Time.deltaTime;
 				} else if (position == 1) {
-					turn = (Random.Range(3, 6) + m_TurnSpeed) * Time.deltaTime;
+					turn = (Random.Range(3, 6) * m_TurnSpeed) * Time.deltaTime;
 				} else if (position == 2) {
-					turn = (Random.Range(-5, 3) + m_TurnSpeed) * Time.deltaTime;
+					turn = (Random.Range(-5, 3) * m_TurnSpeed) * Time.deltaTime;
 				}
 			} else
 				turn = 0;

@@ -11,7 +11,9 @@ namespace Complete{
 		public float m_ExplosionRadius = 2f; // The maximum distance away from the explosion tanks can be and are still affected.
 
 
+
 		private void Start() {
+			
 			// If it isn't destroyed by then, destroy the shell after it's lifetime.
 			Destroy(gameObject, m_MaxLifeTime);
 		}

@@ -19,7 +19,6 @@ public class GameController : MonoBehaviour {
 	public GameObject[] enemies;
 
 	GameObject enemy;
-	bool IsGameOver;
 	int score=0;
 	int highscore;
 
@@ -52,27 +51,22 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	public void Pause() {
-		isPause = !isPause;
-	}
+
 	public void AddScore(){
 		//Add score by 1 and showing that score to GameScoreText.
 		score+=1;
 		GameScoreText.text= score.ToString ();
 	}
 	public void addEnemy(){
-		Vector3 position = new Vector3 (Random.Range(-50,50),0,Random.Range(-50,50));
+		
 		enemy = enemies[Random.Range(0,enemies.Length)];
+		Vector3 position = new Vector3 (Random.Range(-30,30)* enemy.transform.position.x,0,
+			Random.Range(-30,30)* enemy.transform.position.z);
 		Instantiate (enemy, position, Quaternion.identity);
 		enemy.SetActive (true);
 	}
-	public void Restart(){
-		//Reload the game on restart button
-		Application.LoadLevel (0);
-	}
+
 	public void GameOver(){
-		//sets is isGameOver to true
-		IsGameOver = true;
 		//Plays GameOverSound
 		AudioSource audio = GetComponent<AudioSource>();
 		audio.Play();
