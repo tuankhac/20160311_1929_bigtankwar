@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour {
 	public GameObject[] enemies;
 
 	GameObject enemy;
-	int score=0;
+	int score = 0;
 	int highscore;
 
 	// Use this for initialization
@@ -27,7 +27,7 @@ public class GameController : MonoBehaviour {
 		//this sets timescale to 1 at start.
 		Time.timeScale = 1;
 		//this derives the value of highscore at start.
-		highscore = PlayerPrefs.GetInt("HighScore",0);
+		highscore = PlayerPrefs.GetInt("HighScore", 0);
 		//this disables GameOverCanves and GameCanvas, enables startCanvas.
 		GameOverCanvas.SetActive (false);
 		//GameCanvas.SetActive (false);

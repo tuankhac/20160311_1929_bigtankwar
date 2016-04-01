@@ -49,7 +49,7 @@
      <Compile Include="Assets\Scripts\Camera\View.cs" />
      <Compile Include="Assets\Scripts\Manager\GameController.cs" />
      <Compile Include="Assets\Scripts\Manager\Manager.cs" />
-     <Compile Include="Assets\Scripts\SencesManager.cs" />
+     <Compile Include="Assets\Scripts\SceneLoader.cs" />
      <Compile Include="Assets\Scripts\Shell\ShellExplosion.cs" />
      <Compile Include="Assets\Scripts\Tank\EnemyMovement.cs" />
      <Compile Include="Assets\Scripts\Tank\EnemyShooting.cs" />
@@ -59,7 +59,6 @@
      <Compile Include="Assets\Scripts\Tank\TankMovement.cs" />
      <Compile Include="Assets\Scripts\Tank\TankShooting.cs" />
      <Compile Include="Assets\Scripts\UI\UIDirectionControl.cs" />
-     <None Include="Assets\Fit All Screen Size\ReadMe.txt" />
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
      <None Include="Assets\Standard Assets\Environment\Water (Basic)\Shaders\FXWaterBasic.shader" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
