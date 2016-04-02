@@ -49,7 +49,7 @@
      <Compile Include="Assets\Scripts\Camera\View.cs" />
      <Compile Include="Assets\Scripts\Manager\GameController.cs" />
      <Compile Include="Assets\Scripts\Manager\Manager.cs" />
-     <Compile Include="Assets\Scripts\SencesManager.cs" />
+     <Compile Include="Assets\Scripts\SceneLoader.cs" />
      <Compile Include="Assets\Scripts\Shell\ShellExplosion.cs" />
      <Compile Include="Assets\Scripts\Tank\EnemyMovement.cs" />
      <Compile Include="Assets\Scripts\Tank\EnemyShooting.cs" />
