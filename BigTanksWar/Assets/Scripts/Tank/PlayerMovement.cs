@@ -13,7 +13,21 @@ namespace Complete{
 		public GameObject[]enemies;
 		Rigidbody[]r_enemies;
 
+		private float m_MovementInputValue;         // The current value of the movement input.
+		private float m_TurnInputValue;             // The current value of the turn input.
+		private string m_MovementAxisName;          // The name of the input axis for moving forward and back.
+		private string m_TurnAxisName;              // The name of the input axis for turning.
+		public int m_PlayerNumber = 1;              // Used to identify which tank belongs to which player.  This is set by this tank's manager.
 		void Start() {
+			// Also reset the input values.
+			m_MovementInputValue = 0f;
+			m_TurnInputValue = 0f;
+
+
+			// The axes names are based on player number.
+			m_MovementAxisName = "Vertical" + m_PlayerNumber;
+			m_TurnAxisName = "Horizontal" + m_PlayerNumber;
+
 			enemies = GameObject.FindGameObjectsWithTag("Enemy");
 			r_enemies = new Rigidbody[enemies.Length];
 			for (int i = 0; i < enemies.Length; i++) {
@@ -22,6 +36,10 @@ namespace Complete{
 		}
 		// Update is called once per frame
 		void Update() {
+			// Store the value of both input axes.
+			m_MovementInputValue = Input.GetAxis (m_MovementAxisName);
+			m_TurnInputValue = Input.GetAxis (m_TurnAxisName);
+
 
 			playerTurn();
 
@@ -40,10 +58,37 @@ namespace Complete{
 		}
 
 		void FixedUpdate() {
+			//keyboard test
+			Move ();
+			Turn ();
+
+
 			playerMovement();
 			for (int i = 0; i < enemies.Length; i++) {
 				enemyMovement(r_enemies[i], enemies[i], i);
 			}
+		}
+
+		private void Move ()
+		{
+			// Create a vector in the direction the tank is facing with a magnitude based on the input, speed and the time between frames.
+			Vector3 movement = transform.forward * m_MovementInputValue * m_Speed * Time.deltaTime;
+
+			// Apply this movement to the rigidbody's position.
+			m_Rigidbody.MovePosition(m_Rigidbody.position + movement);
+		}
+
+
+		private void Turn ()
+		{
+			// Determine the number of degrees to be turned based on the input, speed and time between frames.
+			float turn = m_TurnInputValue * m_TurnSpeed * Time.deltaTime;
+
+			// Make this into a rotation in the y axis.
+			Quaternion turnRotation = Quaternion.Euler (0f, turn, 0f);
+
+			// Apply this rotation to the rigidbody's rotation.
+			m_Rigidbody.MoveRotation (m_Rigidbody.rotation * turnRotation);
 		}
 
 		private void enemyMovement(Rigidbody rigid, GameObject obj, int position) {

@@ -15,7 +15,7 @@ namespace Complete{
 		private bool m_Dead; // Has the tank been reduced beyond zero health yet?
 
 		//public GameObject m_ExplosionPrefab; 
-
+		Transform hiddenGameObject;
 		private void InitParticle() {
 			// Instantiate the explosion prefab and get a reference to the particle system on it.
 			 //m_ExplosionParticles = Instantiate (m_ExplosionPrefab).GetComponent<ParticleSystem> ();
@@ -34,6 +34,7 @@ namespace Complete{
 
 			// Update the health slider's value and color.
 			SetHealthUI();
+			hiddenGameObject = this.transform;
 		}
 
 		public void TakeDamage(float amount,Collider other) {
@@ -42,6 +43,7 @@ namespace Complete{
 
 			// Change the UI elements appropriately.
 			SetHealthUI();
+			GameObject.FindGameObjectWithTag("GameController").SendMessage("RequestPower",m_CurrentHealth);
 
 			// If the current health is at or below zero and it has not yet been registered, call OnDeath.
 			if (m_CurrentHealth <= 0f && !m_Dead) {
@@ -55,7 +57,7 @@ namespace Complete{
 				}
 				if (other.tag == "Enemy") {
 					GameObject.FindGameObjectWithTag("GameController").SendMessage("AddScore");
-					GameObject.FindGameObjectWithTag("GameController").SendMessage("addEnemy");
+					GameObject.FindGameObjectWithTag("GameController").SendMessage("addEnemy",hiddenGameObject);
 				}
 			}
 		}
@@ -83,9 +85,9 @@ namespace Complete{
 
 			// Play the tank explosion sound effect.
 			m_ExplosionAudio.Play();
-
+			m_ExplosionAudio.Stop();
 			// Turn the tank off.
-			gameObject.SetActive(false);
+			hiddenGameObject.gameObject.SetActive(false);
 
 
 		}
