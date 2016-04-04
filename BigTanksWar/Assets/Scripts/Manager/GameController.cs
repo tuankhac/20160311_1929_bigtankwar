@@ -106,12 +106,12 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void addEnemy(Transform ene) {
-		float x = Random.Range(0, 30) + ene.transform.position.x;
-		float z = Random.Range(0, 30) + ene.transform.position.z;
-		if (x > 118)
-			x = 118;
-		if (z > 118)
-			z = 118;
+		float x = Random.Range(20, 30) + ene.transform.position.x;
+		float z = Random.Range(20, 40) + ene.transform.position.z;
+		if (x > 140)
+			x = 140;
+		if (z > 140)
+			z = 140;
 		Vector3 position = new Vector3(x, 0, z);
 		//Instantiate (enemy, position, Quaternion.identity);
 		ene.transform.position = position;

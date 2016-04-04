@@ -89,11 +89,16 @@ namespace Complete {
 			// Create a vector in the direction the tank is facing with a magnitude based on the input, speed and the time between frames.
 			if (timeUpdate > 2.5 && timeUpdate < 5) {
 				Vector3 movement = new Vector3(0, 0, 0);
+
 				if (position == 0) {
-					movement = obj.transform.forward * Random.value / 10;
+					movement = obj.transform.forward * Random.value / 15;
 				} else if (position == 1) {
-					movement = obj.transform.forward * Random.value / 10;
+					movement = obj.transform.forward * Random.value / 9;
 				} else if (position == 2) {
+					movement = obj.transform.forward * Random.value / 8;
+				} else if (position == 3) {
+					movement = obj.transform.forward * Random.value / 13;
+				} else {
 					movement = obj.transform.forward * Random.value / 10;
 				}
 
@@ -109,11 +114,13 @@ namespace Complete {
 			Quaternion turnRotation;
 			if (timeUpdate > 0.55 && timeUpdate < 0.95) {
 				if (position == 0) {
-					turn = (Random.Range(2, 5) * m_TurnSpeed) * Time.deltaTime;
+					turn = (Random.Range (1, 4) * m_TurnSpeed) * Time.deltaTime;
 				} else if (position == 1) {
-					turn = (Random.Range(-2, 2) * m_TurnSpeed) * Time.deltaTime;
+					turn = (Random.Range (-7, -4) * m_TurnSpeed) * Time.deltaTime;
 				} else if (position == 2) {
-					turn = (Random.Range(-2, 4) * m_TurnSpeed) * Time.deltaTime;
+					turn = (Random.Range (-4, -1) * m_TurnSpeed) * Time.deltaTime;
+				} else {
+					turn = (Random.Range (4, 8) * m_TurnSpeed) * Time.deltaTime;
 				}
 			} else if (timeUpdate > 10 && timeUpdate < 10.5) {
 				if (position == 0) {
