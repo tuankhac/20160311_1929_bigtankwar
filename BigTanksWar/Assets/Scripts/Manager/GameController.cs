@@ -24,7 +24,7 @@ public class GameController : MonoBehaviour {
 	int score = 0;
 	int highscore;
 	float timeToShow = 0;
-	Vector3 position = new Vector3(40, 0, 72.9f);
+	Vector3 position = new Vector3(40, 1, 72.9f);
 	Vector3 infinite = new Vector3(0f, -50f, 0);
 
 	private AudioSource m_ExplosionAudio; // The audio source to play when the tank explodes.
@@ -83,11 +83,11 @@ public class GameController : MonoBehaviour {
 			}
 		} else {
 			//Debug.Log (clonePowerFull.transform.position);
-			//if(timeToShow > 30){
-			//clonePowerFull.gameObject.SetActive (false);
-			isStillShow = false;
-			timeToShow = 0;
-			//}
+			if(timeToShow > 30) {
+				clonePowerFull.gameObject.SetActive (false);
+				isStillShow = false;
+				timeToShow = 0;
+			}
 		}
 
 	}
