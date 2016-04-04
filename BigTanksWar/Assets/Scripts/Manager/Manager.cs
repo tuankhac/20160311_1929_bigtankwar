@@ -10,8 +10,8 @@ public class Manager : MonoBehaviour {
 		else
 			image.color = Color.white;
 	}
-	public void Restart(){
+	public void Restart() {
 		GameController.isPause = false;
-		Application.LoadLevel (1);
+		Application.LoadLevel(1);
 	}
 }

@@ -1,31 +1,19 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Complete{
-	public class TankHealth : MonoBehaviour{
+namespace Complete {
+	public class TankHealth : MonoBehaviour {
 		public float m_StartingHealth = 100f; // The amount of health each tank starts with.
 		public Slider m_Slider; // The slider to represent how much health the tank currently has.
 		public Image m_FillImage; // The image component of the slider.
 		public Color m_FullHealthColor = Color.green; // The color the health bar will be when on full health.
 		public Color m_ZeroHealthColor = Color.red; // The color the health bar will be when on no health.
 
-		private AudioSource m_ExplosionAudio; // The audio source to play when the tank explodes.
-		public ParticleSystem m_ExplosionParticles; // The particle system the will play when the tank is destroyed.
 		private float m_CurrentHealth; // How much health the tank currently has.
-		private bool m_Dead; // Has the tank been reduced beyond zero health yet?
-
-		//public GameObject m_ExplosionPrefab; 
 		Transform hiddenGameObject;
-		private void InitParticle() {
-			// Instantiate the explosion prefab and get a reference to the particle system on it.
-			 //m_ExplosionParticles = Instantiate (m_ExplosionPrefab).GetComponent<ParticleSystem> ();
 
-			// Get a reference to the audio source on the instantiated prefab.
-			m_ExplosionAudio = m_ExplosionParticles.GetComponent < AudioSource > ();
 
-			// Disable the prefab so it can be activated when it's required.
-			m_ExplosionParticles.gameObject.SetActive(false);
-		}
+		public static bool m_Dead; // Has the tank been reduced beyond zero health yet?
 
 		private void OnEnable() {
 			// When the tank is enabled, reset the tank's health and whether or not it's dead.
@@ -36,28 +24,32 @@ namespace Complete{
 			SetHealthUI();
 			hiddenGameObject = this.transform;
 		}
-
-		public void TakeDamage(float amount,Collider other) {
+		public void Update(){ SetHealthUI();
+		}
+		public void TakeDamage(float amount, Collider other) {
 			// Reduce current health by the amount of damage done.
 			m_CurrentHealth -= amount;
 
 			// Change the UI elements appropriately.
 			SetHealthUI();
-			GameObject.FindGameObjectWithTag("GameController").SendMessage("RequestPower",m_CurrentHealth);
+			if (this.gameObject.name == "Player")
+				GameObject.FindGameObjectWithTag("GameController").SendMessage("RequestPower", m_CurrentHealth);
 
 			// If the current health is at or below zero and it has not yet been registered, call OnDeath.
 			if (m_CurrentHealth <= 0f && !m_Dead) {
-				OnDeath();
+				//OnDeath();
+
+				GameObject.FindGameObjectWithTag("GameController").SendMessage("OnDeath", hiddenGameObject);
 				if (other.tag == "Player") {
 					GameController.isPause = true;
 					GameObject.FindGameObjectWithTag("GameController").SendMessage("GameOver");
 
-					GameObject canvasControl = GameObject.FindGameObjectWithTag ("CanvasControl");
-					canvasControl.SetActive (false);
+					GameObject canvasControl = GameObject.FindGameObjectWithTag("CanvasControl");
+					canvasControl.SetActive(false);
 				}
 				if (other.tag == "Enemy") {
 					GameObject.FindGameObjectWithTag("GameController").SendMessage("AddScore");
-					GameObject.FindGameObjectWithTag("GameController").SendMessage("addEnemy",hiddenGameObject);
+					GameObject.FindGameObjectWithTag("GameController").SendMessage("addEnemy", hiddenGameObject);
 				}
 			}
 		}
@@ -70,26 +62,5 @@ namespace Complete{
 			m_FillImage.color = Color.Lerp(m_ZeroHealthColor, m_FullHealthColor, m_CurrentHealth / m_StartingHealth);
 		}
 
-		private void OnDeath() {
-			InitParticle();
-
-			// Set the flag so that this function is only called once.
-			m_Dead = true;
-
-			// Move the instantiated explosion prefab to the tank's position and turn it on.
-			m_ExplosionParticles.transform.position = transform.position;
-			m_ExplosionParticles.gameObject.SetActive(true);
-
-			// Play the particle system of the tank exploding.
-			m_ExplosionParticles.Play();
-
-			// Play the tank explosion sound effect.
-			m_ExplosionAudio.Play();
-			m_ExplosionAudio.Stop();
-			// Turn the tank off.
-			hiddenGameObject.gameObject.SetActive(false);
-
-
-		}
 	}
 }

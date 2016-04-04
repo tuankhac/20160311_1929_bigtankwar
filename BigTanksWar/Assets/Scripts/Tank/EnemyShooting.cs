@@ -20,7 +20,7 @@ namespace Complete {
 			if (!GameController.isPause) {
 				timeOut += Time.deltaTime / 2;
 				dis = player.distance(new Vector2(transform.position.x, transform.position.z),
-					new Vector2(tPlayer.position.x, tPlayer.position.z));
+						new Vector2(tPlayer.position.x, tPlayer.position.z));
 				this.enemiesFire();
 			}
 		}

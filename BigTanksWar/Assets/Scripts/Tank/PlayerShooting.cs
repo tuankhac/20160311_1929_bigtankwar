@@ -2,7 +2,7 @@
 using System.Collections;
 using Complete;
 
-public class PlayerShooting : TankShooting{
+public class PlayerShooting : TankShooting {
 	private bool isDown = false;
 	private bool isUp = false;
 

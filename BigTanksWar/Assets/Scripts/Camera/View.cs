@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class View : MonoBehaviour{
+public class View : MonoBehaviour {
 	public GameObject player;
 	public GameObject pointFollow;
 	public GameObject pointLookAt;

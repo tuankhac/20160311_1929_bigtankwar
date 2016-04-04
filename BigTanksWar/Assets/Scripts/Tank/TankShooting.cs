@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Complete{
-	public class TankShooting : MonoBehaviour{
+namespace Complete {
+	public class TankShooting : MonoBehaviour {
 		public Rigidbody m_Shell;
 		// Prefab of the shell.
 		public Transform m_FireTransform;

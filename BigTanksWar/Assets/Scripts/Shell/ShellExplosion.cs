@@ -1,7 +1,7 @@
 using UnityEngine;
 
-namespace Complete{
-	public class ShellExplosion : MonoBehaviour{
+namespace Complete {
+	public class ShellExplosion : MonoBehaviour {
 		public LayerMask m_TankMask; // Used to filter what the explosion affects, this should be set to "Players".
 		public ParticleSystem m_ExplosionParticles; // Reference to the particles that will play on explosion.
 		public AudioSource m_ExplosionAudio; // Reference to the audio that will play on explosion.
@@ -11,9 +11,8 @@ namespace Complete{
 		public float m_ExplosionRadius = 2f; // The maximum distance away from the explosion tanks can be and are still affected.
 
 
-
 		private void Start() {
-			
+
 			// If it isn't destroyed by then, destroy the shell after it's lifetime.
 			Destroy(gameObject, m_MaxLifeTime);
 		}
@@ -45,7 +44,7 @@ namespace Complete{
 				float damage = CalculateDamage(targetRigidbody.position);
 
 				// Deal this damage to the tank.
-				targetHealth.TakeDamage(damage,colliders[i]);
+				targetHealth.TakeDamage(damage, colliders[i]);
 			}
 			// Unparent the particles from the shell.
 			m_ExplosionParticles.transform.parent = null;

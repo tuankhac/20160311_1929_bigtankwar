@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace Complete{
-	public class EnemyMovement : TankMovement{
+namespace Complete {
+	public class EnemyMovement : TankMovement {
 		//for rotate of enemy
 		float timeUpdate = 0;
 		private Transform tplayer;
@@ -18,7 +18,7 @@ namespace Complete{
 		// Update is called once per frame
 		void Update() {
 			float dis = distance(new Vector2(transform.position.x, transform.position.z),
-				new Vector2(tplayer.position.x, tplayer.position.z));
+					new Vector2(tplayer.position.x, tplayer.position.z));
 			if (dis < 20)
 				this.transform.LookAt(tplayer);
 			else {
