@@ -1,63 +1,72 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace Complete {
-	public class EnemyMovement : TankMovement {
-		//for rotate of enemy
-		float timeUpdate = 0;
-		private Transform tplayer;
+public class EnemyMovement : TankMovement {
+	float timeUpdate = 0;
 
-		public GameObject enemy1;
-		PlayerMovement player;
+	private float timeDelay;
+	public float distanceLookAt = 20f;
+	[HideInInspector] public float currentDistance;
 
-		void Start() {
-			player = FindObjectOfType(typeof(PlayerMovement))as PlayerMovement;
-			tplayer = player.transform;
-		}
+	public PlayerMovement player;
 
-		// Update is called once per frame
-		void Update() {
-			float dis = distance(new Vector2(transform.position.x, transform.position.z),
-					new Vector2(tplayer.position.x, tplayer.position.z));
-			if (dis < 20)
-				this.transform.LookAt(tplayer);
-			else {
+	void Start() {
+		player = FindObjectOfType(typeof(PlayerMovement))as PlayerMovement;
+		timeDelay = Random.Range (6, 9);
+		Transform _player = player.transform;
+		currentDistance = distance(new Vector2(transform.position.x, transform.position.z), new Vector2(_player.position.x, _player.position.z));
+	}
 
-				if (timeUpdate > 6) {
-					timeUpdate = 0;
-				}
-				enemyTurn();
-				enemyMovement();
-				timeUpdate += Time.deltaTime;
-			}
-		}
+	public bool isInRange () {
+		Transform _player = player.transform;
+		currentDistance = distance(new Vector2(transform.position.x, transform.position.z), new Vector2(_player.position.x, _player.position.z));
+		if (currentDistance < distanceLookAt)
+			return true;
+		else
+			return false;
+	}
 
-		private void enemyTurn() {
-			// Determine the number of degrees to be turned based on the input, speed and time between frames.
-			float turn = 0;
-			if (timeUpdate > 0.55 && timeUpdate < 0.95) {
-				turn = (Random.Range(2, 5) + m_TurnSpeed) * Time.deltaTime;
-			} else if (timeUpdate > 4 && timeUpdate < 4.5) {
-				turn = (Random.Range(-2, 1) + m_TurnSpeed) * Time.deltaTime;
-			} else
-				turn = 0;
-			// Make this into a rotation in the y axis.
-			Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
+	void Update() {
+		Transform _player = player.transform;
 
-			// Apply this rotation to the rigidbody's rotation.
-			m_Rigidbody.MoveRotation(m_Rigidbody.rotation * turnRotation);
-		}
-
-		private void enemyMovement() {
-			// Create a vector in the direction the tank is facing with a magnitude based on the input, speed and the time between frames.
-			if (timeUpdate > 2.5 && timeUpdate < 5) {
-				Vector3 movement = new Vector3(0, 0, 0);
-				movement = transform.forward * Random.Range(5, 12) * Time.deltaTime;
-
-				m_Rigidbody.MovePosition(m_Rigidbody.position + movement);
-			} else if (timeUpdate > 5) {
+		if (isInRange())
+			this.transform.LookAt(_player);
+		else {
+			if (timeUpdate > timeDelay) {
+				timeDelay = Random.Range (6, 9);
 				timeUpdate = 0;
 			}
+			enemyTurn();
+			enemyMove();
+			timeUpdate += Time.deltaTime;
 		}
+	}
+
+	private void enemyTurn() {
+	
+		// Determine the number of degrees to be turned based on the input, speed and time between frames.
+		float turn = 0;
+		if (timeUpdate > 0.55f && timeUpdate < 0.95f) {
+			turn = (Random.Range(8, 15));
+		} else if (timeUpdate > 6 && timeUpdate < 7.5f) {
+			turn = (Random.Range(1, 7));
+		} else
+			turn = 0;
+	
+		// Make this into a rotation in the y axis.
+		Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
+		// Apply this rotation to the rigidbody's rotation.
+		m_Rigidbody.MoveRotation(m_Rigidbody.rotation * turnRotation);
+
+	}
+
+	private void enemyMove() {
+		
+		// Create a vector in the direction the tank is facing with a magnitude based on the input, speed and the time between frames.
+		if (timeUpdate > 1.9f && timeUpdate < timeDelay / 2) {
+			Vector3 _movement = transform.forward * (Random.value + 1f) / 6;
+			m_Rigidbody.MovePosition(m_Rigidbody.position + _movement);
+		}
+
 	}
 }
