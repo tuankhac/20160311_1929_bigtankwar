@@ -10,13 +10,11 @@ public class EnemyShooting : TankShooting {
 	}
 
 	void Update() {
-		if (!GameController.isPause) {
-			timeOut += Time.deltaTime;
+		timeOut += Time.deltaTime;
 
-			if (movement.isInRange() && timeOut > 1.7f) {
-				Fire();
-				timeOut = 0;
-			}
+		if (movement.isInRange() && timeOut > 1.7f) {
+			Fire();
+			timeOut = 0;
 		}
 	}
 }

@@ -3,7 +3,7 @@ using System.Collections;
 
 	public class TankMovement : MonoBehaviour {
 
-		public float m_Speed = 12f;
+		public float m_Speed = 7f;
 		// How fast the tank moves forward and back.
 		public float m_TurnSpeed = 50f;
 		// How fast the tank turns in degrees per second.
