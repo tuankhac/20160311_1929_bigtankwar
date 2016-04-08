@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class Manager : MonoBehaviour {
 	public Image image;
 	public void Pause() {
@@ -12,6 +12,6 @@ public class Manager : MonoBehaviour {
 	}
 	public void Restart() {
 		GameController.isPause = false;
-		Application.LoadLevel(1);
+		SceneManager.LoadSceneAsync (1);
 	}
 }

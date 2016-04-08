@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class EnemyMovement : TankMovement {
 	float timeUpdate = 0;
@@ -27,18 +26,20 @@ public class EnemyMovement : TankMovement {
 	}
 
 	void Update() {
-		Transform _player = player.transform;
-
-		if (isInRange())
-			this.transform.LookAt(_player);
-		else {
+		if (!GameController.isPause) {
+			Transform _player = player.transform;
+			timeUpdate += Time.deltaTime;
 			if (timeUpdate > timeDelay) {
 				timeDelay = Random.Range (6, 9);
 				timeUpdate = 0;
 			}
-			enemyTurn();
-			enemyMove();
-			timeUpdate += Time.deltaTime;
+			if (isInRange ())
+				this.transform.LookAt (_player);
+			else {
+				enemyTurn ();
+			}
+			enemyMove ();
+			EngineAudio();
 		}
 	}
 

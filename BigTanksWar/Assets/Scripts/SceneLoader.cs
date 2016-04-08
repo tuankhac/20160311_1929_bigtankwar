@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour {
 	private bool is_load_gameplay = false;
@@ -22,7 +23,8 @@ public class SceneLoader : MonoBehaviour {
 
 	IEnumerator LoadNewScene () {
 		yield return new WaitForSeconds (3);
-		AsyncOperation async = Application.LoadLevelAsync (1);
+		//AsyncOperation async = Application.LoadLevelAsync (1);
+		SceneManager.LoadSceneAsync (1);
 		//Application.LoadLevel ("Sences/GamePlayer");
 		//while (!async.isDone) {
 		//	yield return null;

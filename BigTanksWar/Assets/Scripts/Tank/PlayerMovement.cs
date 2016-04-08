@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class PlayerMovement : TankMovement {
 	private bool isLeft = false,
@@ -30,8 +29,8 @@ public class PlayerMovement : TankMovement {
 
 		playerTurn();
 
-		EngineAudio();
-
+		if(isTop || isBottom || isLeft || isRight)
+			EngineAudio();
 	}
 
 	void FixedUpdate() {
@@ -40,7 +39,6 @@ public class PlayerMovement : TankMovement {
 		Turn();
 
 		playerMovement();
-
 	}
 
 	private void Move() {

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 	public class TankMovement : MonoBehaviour {
 
@@ -48,12 +47,9 @@ using System.Collections;
 		}
 
 		public void EngineAudio() {
-			// Otherwise if the tank is moving and if the idling clip is currently playing...
-			if (m_MovementAudio.clip == m_EngineIdling) {
+			// Otherwise if the tank is moving and if the idling clip is currently playing...{
 				// ... change the clip to driving and play.
 				m_MovementAudio.clip = m_EngineDriving;
-				m_MovementAudio.pitch = Random.Range(m_OriginalPitch - m_PitchRange, m_OriginalPitch + m_PitchRange);
 				m_MovementAudio.Play();
-			}
 		}
 	}

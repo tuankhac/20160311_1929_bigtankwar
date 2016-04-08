@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class RotateY : MonoBehaviour {
 	void Update () {

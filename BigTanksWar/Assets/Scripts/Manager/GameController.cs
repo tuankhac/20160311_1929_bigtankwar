@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using Complete;
 using UnityEngine.UI;
 public class GameController : MonoBehaviour {
@@ -9,10 +8,9 @@ public class GameController : MonoBehaviour {
 	PlayerMovement playerMovement;
 	PlayerShooting playerShooting;
 	EnemyShooting enemeyShooting;
+	EnemyMovement enemyMovement;
 
 	public GameObject GameOverCanvas;
-	//public GameObject GameCanvas;
-	//public GameObject StartCanvas;
 	public Text ScoreText;
 	public Text HighScoreText;
 	public Text GameScoreText;
@@ -25,7 +23,6 @@ public class GameController : MonoBehaviour {
 	int highscore;
 	float timeToShow = 0;
 	Vector3 position = new Vector3(40, 1, 72.9f);
-	Vector3 infinite = new Vector3(0f, -50f, 0);
 
 	private AudioSource m_ExplosionAudio; // The audio source to play when the tank explodes.
 	private ParticleSystem m_ExplosionParticles; // The particle system the will play when the tank is destroyed.
@@ -58,7 +55,7 @@ public class GameController : MonoBehaviour {
 		playerMovement = FindObjectOfType(typeof(PlayerMovement))as PlayerMovement;
 		playerShooting = FindObjectOfType(typeof(PlayerShooting))as PlayerShooting;
 		enemeyShooting = FindObjectOfType(typeof(EnemyShooting))as EnemyShooting;
-
+		enemyMovement =  FindObjectOfType(typeof(EnemyMovement))as EnemyMovement;
 	}
 
 	// Update is called once per frame
@@ -67,30 +64,32 @@ public class GameController : MonoBehaviour {
 			enemeyShooting.enabled = true;
 			playerMovement.enabled = true;
 			playerShooting.enabled = true;
+			enemyMovement.enabled = true;
+			timeToShow += Time.deltaTime;
+
+			if (isPowerShow) {
+				if (GameObject.Find("Player") != null) {
+					position.x = Random.Range(0, 10) + GameObject.Find("Player").gameObject.transform.position.x;
+					position.z = Random.Range(0, 10) + GameObject.Find("Player").gameObject.transform.position.z;
+					clonePowerFull.gameObject.transform.position = position;
+					clonePowerFull.gameObject.SetActive(true);
+
+					isPowerShow = false;
+				}
+			} else {
+				//Debug.Log (clonePowerFull.transform.position);
+				if(timeToShow > 30) {
+					clonePowerFull.gameObject.SetActive (false);
+					isStillShow = false;
+					timeToShow = 0;
+				}
+			}
 		} else {
 			enemeyShooting.enabled = false;
 			playerMovement.enabled = false;
 			playerShooting.enabled = false;
+			enemyMovement.enabled  = false;
 		}
-		timeToShow += Time.deltaTime;
-		if (isPowerShow) {
-			if (GameObject.Find("Player") != null) {
-				position.x = Random.Range(0, 10) + GameObject.Find("Player").gameObject.transform.position.x;
-				position.z = Random.Range(0, 10) + GameObject.Find("Player").gameObject.transform.position.z;
-				clonePowerFull.gameObject.transform.position = position;
-				clonePowerFull.gameObject.SetActive(true);
-
-				isPowerShow = false;
-			}
-		} else {
-			//Debug.Log (clonePowerFull.transform.position);
-			if(timeToShow > 30) {
-				clonePowerFull.gameObject.SetActive (false);
-				isStillShow = false;
-				timeToShow = 0;
-			}
-		}
-
 	}
 		
 	public void AddScore() {

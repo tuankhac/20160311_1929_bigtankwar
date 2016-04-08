@@ -23,9 +23,9 @@ using UnityEngine.UI;
 			SetHealthUI();
 			hiddenGameObject = this.transform;
 		}
-		public void Update(){ SetHealthUI();
-		}
-		public void TakeDamage(float amount, Collider other) {
+	public void Update(){ SetHealthUI(); }
+
+	public void TakeDamage(float amount, Collider other) {
 			// Reduce current health by the amount of damage done.
 			m_CurrentHealth -= amount;
 

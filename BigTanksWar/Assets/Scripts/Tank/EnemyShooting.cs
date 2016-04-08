@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class EnemyShooting : TankShooting {
 	private EnemyMovement movement;
@@ -10,11 +9,13 @@ public class EnemyShooting : TankShooting {
 	}
 
 	void Update() {
-		timeOut += Time.deltaTime;
+		if (!GameController.isPause) {
+			timeOut += Time.deltaTime;
 
-		if (movement.isInRange() && timeOut > 1.7f) {
-			Fire();
-			timeOut = 0;
+			if (movement.isInRange () && timeOut > 1.7f) {
+				Fire ();
+				timeOut = 0;
+			}
 		}
 	}
 }
