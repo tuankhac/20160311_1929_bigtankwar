@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 
 public class PlayerMovement : TankMovement {
+	public AudioSource m_MovementAudio; // Reference to the audio source used to play engine sounds. NB: different to the shooting audio source.
+	public AudioClip m_EngineIdling; // Audio to play when the tank isn't moving.
+	public AudioClip m_EngineDriving; // Audio to play when the tank is moving.
+
 	private bool isLeft = false,
 	isRight = false,
 	isTop = false,
@@ -28,12 +32,7 @@ public class PlayerMovement : TankMovement {
 		m_TurnInputValue = Input.GetAxis(m_TurnAxisName);
 
 		playerTurn();
-
-		if(isTop || isBottom || isLeft || isRight)
-			EngineAudio();
-	}
-
-	void FixedUpdate() {
+		EngineAudio();
 		//keyboard test
 		Move();
 		Turn();
@@ -123,5 +122,32 @@ public class PlayerMovement : TankMovement {
 		}
 		//Debug.Log (other.gameObject.name);
 
+	}
+
+	public void EngineAudio() {
+		// Otherwise if the tank is moving and if the idling clip is currently playing...{
+		// ... change the clip to driving and play.
+
+		if (isLeft || isRight)
+		{
+			if (m_MovementAudio.clip == m_EngineDriving)
+			{
+				// ... change the clip to idling and play it.
+				m_MovementAudio.clip = m_EngineIdling;
+			//	m_MovementAudio.pitch = Random.Range (m_OriginalPitch - m_PitchRange, m_OriginalPitch + m_PitchRange);
+				m_MovementAudio.Play ();
+			}
+		}
+		if (isTop || isBottom)
+		{
+			// Otherwise if the tank is moving and if the idling clip is currently playing...
+			if (m_MovementAudio.clip == m_EngineIdling)
+			{
+				// ... change the clip to driving and play.
+				m_MovementAudio.clip = m_EngineDriving;
+			//	m_MovementAudio.pitch = Random.Range(m_OriginalPitch - m_PitchRange, m_OriginalPitch + m_PitchRange);
+				m_MovementAudio.Play();
+			}
+		}
 	}
 }

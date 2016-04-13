@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using Complete;
 using UnityEngine.UI;
+using UnityEngine.Advertisements;
+
 public class GameController : MonoBehaviour {
 
 	public static bool isPause = false;
@@ -108,10 +110,8 @@ public class GameController : MonoBehaviour {
 	public void addEnemy(Transform ene) {
 		float x = Random.Range(20, 30) + ene.transform.position.x;
 		float z = Random.Range(20, 40) + ene.transform.position.z;
-		if (x > 140)
-			x %= 140;
-		if (z > 140)
-			z %= 140;
+		if (x > 140) x %= 140;
+		if (z > 140) z %= 140;
 		Vector3 position = new Vector3(x, 0, z);
 		//Instantiate (enemy, position, Quaternion.identity);
 		ene.transform.position = position;
@@ -119,6 +119,8 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void GameOver() {
+		if (Advertisement.IsReady () && Random.Range(1, 3) == 2)
+			Advertisement.Show ();
 		//Plays GameOverSound
 		AudioSource audio = GetComponent < AudioSource > ();
 		audio.Play();
@@ -138,8 +140,6 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void OnDeath(Transform m_Transform) {
-		//InitParticle();
-
 		// Set the flag so that this function is only called once.
 		TankHealth.m_Dead = true;
 

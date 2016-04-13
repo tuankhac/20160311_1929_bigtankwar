@@ -39,7 +39,6 @@ public class EnemyMovement : TankMovement {
 				enemyTurn ();
 			}
 			enemyMove ();
-			EngineAudio();
 		}
 	}
 
