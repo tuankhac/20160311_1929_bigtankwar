@@ -23,11 +23,6 @@ public class SceneLoader : MonoBehaviour {
 
 	IEnumerator LoadNewScene () {
 		yield return new WaitForSeconds (3);
-		//AsyncOperation async = Application.LoadLevelAsync (1);
 		SceneManager.LoadSceneAsync (1);
-		//Application.LoadLevel ("Sences/GamePlayer");
-		//while (!async.isDone) {
-		//	yield return null;
-		//}
 	}
 }

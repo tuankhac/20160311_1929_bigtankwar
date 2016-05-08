@@ -2,41 +2,44 @@
 using System.Collections;
 
 public class EnemyManager : MonoBehaviour {
+	public float maxInZone = 44f;
 	private bool isMove = false;
 	public string enemyZone;
 	private string enemyGlobal = "EnemyGlobal";
-	PlayerMovement playerMovement; 
+	PlayerMovement playerMovement;
 
-	void Start(){
-		playerMovement = FindObjectOfType<PlayerMovement> ();
+	void Start() {
+		playerMovement = FindObjectOfType < PlayerMovement > ();
 	}
-	void Update () {
+	void Update() {
 		if (isGlobal() && !isMove) {
-			init (enemyGlobal);
+			init(enemyGlobal);
 			isMove = true;
 			playerMovement.ePlayerZone = "";
 		}
-		if (Vector3.Distance (transform.position,playerMovement.transform.position) < 44 && isMove) {
-			init (enemyZone);
+		if (Vector3.Distance(transform.position, playerMovement.transform.position) < maxInZone && isMove) {
+			init(enemyZone);
 			isMove = false;
 			playerMovement.ePlayerZone = enemyZone;
 		}
 	}
-	void init(string tag){
-		GameObject[] _enemy = GameObject.FindGameObjectsWithTag ("Enemy");
-		GameObject[] _point = GameObject.FindGameObjectsWithTag (tag);
+	public void init(string tag) {
+		GameObject[]_enemy = GameObject.FindGameObjectsWithTag("Enemy");
+		GameObject[]_point = GameObject.FindGameObjectsWithTag(tag);
 		for (int i = 0; i < _point.Length; i++) {
-			Vector3 _temp = _point [i].transform.position;
-			_enemy [i].transform.position = _temp;
+			Vector3 _temp = _point[i].transform.position;
+			_enemy[i].transform.position = _temp;
 		}
 	}
-	bool isGlobal(){
-		GameObject[] objs = GameObject.FindGameObjectsWithTag (enemyZone);
-		for(int i = 0 ;i < objs.Length ;i++)
-			if (Vector3.Distance (objs[i].transform.position, playerMovement.transform.position) < 44) {
+	private bool isGlobal() {
+		GameObject[]objs = GameObject.FindGameObjectsWithTag(enemyZone);
+		for (int i = 0; i < objs.Length; i++)
+			if (Vector3.Distance(objs[i].transform.position, playerMovement.transform.position) < maxInZone) {
 				return false;
-				break;
 			}
 		return true;
+	}
+	public string getEmemyGlobal() {
+		return enemyGlobal;
 	}
 }

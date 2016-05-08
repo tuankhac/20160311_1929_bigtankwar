@@ -12,7 +12,6 @@ namespace Complete {
 
 
 		private void Start() {
-
 			// If it isn't destroyed by then, destroy the shell after it's lifetime.
 			Destroy(gameObject, m_MaxLifeTime);
 		}
@@ -25,14 +24,12 @@ namespace Complete {
 			for (int i = 0; i < colliders.Length; i++) {
 				// ... and find their rigidbody.
 				Rigidbody targetRigidbody = colliders[i].GetComponent < Rigidbody > ();
-
 				// If they don't have a rigidbody, go on to the next collider.
 				if (!targetRigidbody)
 					continue;
 
 				// Add an explosion force.
 				targetRigidbody.AddExplosionForce(m_ExplosionForce, transform.position, m_ExplosionRadius);
-
 				// Find the TankHealth script associated with the rigidbody.
 				targetHealth = targetRigidbody.GetComponent < TankHealth > ();
 
@@ -57,7 +54,7 @@ namespace Complete {
 
 			// Once the particles have finished, destroy the gameobject they are on.
 			Destroy(m_ExplosionParticles.gameObject, m_ExplosionParticles.duration);
-	
+
 			// Destroy the shell.
 			Destroy(gameObject);
 		}

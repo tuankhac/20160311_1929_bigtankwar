@@ -114,10 +114,10 @@ public class PlayerMovement : TankMovement {
 	}
 	private void OnTriggerEnter(Collider other) {
 		if (other.gameObject.tag == "Powerfull") {
-			Destroy (other.gameObject);
-			Collider collider =  GameObject.Find ("Player").GetComponent<Collider> ();
+			Destroy(other.gameObject);
+			Collider collider = GameObject.Find("Player").GetComponent < Collider > ();
 			// Deal this damage to the tank.
-			TankHealth targetHealth = collider.GetComponent<TankHealth>();
+			TankHealth targetHealth = collider.GetComponent < TankHealth > ();
 			float _add = -50f;
 			targetHealth.TakeDamage(_add, collider);
 		}
@@ -127,21 +127,17 @@ public class PlayerMovement : TankMovement {
 		// Otherwise if the tank is moving and if the idling clip is currently playing...{
 		// ... change the clip to driving and play.
 
-		if (isLeft || isRight)
-		{
-			if (m_MovementAudio.clip == m_EngineDriving)
-			{
+		if (isLeft || isRight) {
+			if (m_MovementAudio.clip == m_EngineDriving) {
 				// ... change the clip to idling and play it.
 				m_MovementAudio.clip = m_EngineIdling;
 				//	m_MovementAudio.pitch = Random.Range (m_OriginalPitch - m_PitchRange, m_OriginalPitch + m_PitchRange);
-				m_MovementAudio.Play ();
+				m_MovementAudio.Play();
 			}
 		}
-		if (isTop || isBottom)
-		{
+		if (isTop || isBottom) {
 			// Otherwise if the tank is moving and if the idling clip is currently playing...
-			if (m_MovementAudio.clip == m_EngineIdling)
-			{
+			if (m_MovementAudio.clip == m_EngineIdling) {
 				// ... change the clip to driving and play.
 				m_MovementAudio.clip = m_EngineDriving;
 				//	m_MovementAudio.pitch = Random.Range(m_OriginalPitch - m_PitchRange, m_OriginalPitch + m_PitchRange);
