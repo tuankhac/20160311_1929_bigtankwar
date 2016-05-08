@@ -21,7 +21,6 @@ namespace Complete {
 		private void FixedUpdate() {
 			// Move the camera towards a desired position.
 			Move();
-
 			// Change the size of the camera based.
 			Zoom();
 		}
@@ -29,7 +28,6 @@ namespace Complete {
 		private void Move() {
 			// Find the average position of the targets.
 			FindAveragePosition();
-
 			// Smoothly transition to that position.
 			transform.position = Vector3.SmoothDamp(transform.position, m_DesiredPosition, ref m_MoveVelocity, m_DampTime);
 		}

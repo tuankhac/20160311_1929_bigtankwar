@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour {
 	PlayerShooting playerShooting;
 	EnemyShooting enemeyShooting;
 	EnemyMovement enemyMovement;
+	EnemyManager enemyManager;
 
 	public GameObject GameOverCanvas;
 	public Text ScoreText;
@@ -22,6 +23,7 @@ public class GameController : MonoBehaviour {
 	bool isPowerShow = false;
 	bool isStillShow = false;
 	int score = 0;
+	int scoreInZone = 0;
 	int highscore;
 	float timeToShow = 0;
 	Vector3 position = new Vector3(40, 1, 72.9f);
@@ -40,8 +42,6 @@ public class GameController : MonoBehaviour {
 		// Disable the prefab so it can be activated when it's required.
 		m_ExplosionParticles.gameObject.SetActive(false);
 
-		clonePowerFull = Instantiate(powerFull);
-		clonePowerFull.gameObject.SetActive(false);
 	}
 	// Use this for initialization
 	void Start() {
@@ -51,13 +51,12 @@ public class GameController : MonoBehaviour {
 		highscore = PlayerPrefs.GetInt("HighScore", 0);
 		//this disables GameOverCanves and GameCanvas, enables startCanvas.
 		GameOverCanvas.SetActive(false);
-		//GameCanvas.SetActive (false);
-		//StartCanvas.SetActive (true);
 
 		playerMovement = FindObjectOfType(typeof(PlayerMovement))as PlayerMovement;
 		playerShooting = FindObjectOfType(typeof(PlayerShooting))as PlayerShooting;
 		enemeyShooting = FindObjectOfType(typeof(EnemyShooting))as EnemyShooting;
 		enemyMovement =  FindObjectOfType(typeof(EnemyMovement))as EnemyMovement;
+		enemyManager = FindObjectOfType<EnemyManager> ();
 	}
 
 	// Update is called once per frame
@@ -73,15 +72,13 @@ public class GameController : MonoBehaviour {
 				if (GameObject.Find("Player") != null) {
 					position.x = Random.Range(0, 10) + GameObject.Find("Player").gameObject.transform.position.x;
 					position.z = Random.Range(0, 10) + GameObject.Find("Player").gameObject.transform.position.z;
-					clonePowerFull.gameObject.transform.position = position;
-					clonePowerFull.gameObject.SetActive(true);
+					clonePowerFull = (GameObject)Instantiate (powerFull, position, Quaternion.identity);
 
 					isPowerShow = false;
 				}
 			} else {
-				//Debug.Log (clonePowerFull.transform.position);
 				if(timeToShow > 30) {
-					clonePowerFull.gameObject.SetActive (false);
+					Destroy (clonePowerFull);
 					isStillShow = false;
 					timeToShow = 0;
 				}
@@ -93,10 +90,18 @@ public class GameController : MonoBehaviour {
 			enemyMovement.enabled  = false;
 		}
 	}
-		
+
 	public void AddScore() {
 		//Add score by 1 and showing that score to GameScoreText.
 		score += 1;
+		if (playerMovement.ePlayerZone != "") {
+			if (Vector3.Distance (GameObject.FindGameObjectWithTag (playerMovement.ePlayerZone).transform.position,
+				playerMovement.transform.position) < 44) {
+				scoreInZone++;
+			} else
+				scoreInZone = 0;
+			Debug.Log (scoreInZone);
+		}
 		GameScoreText.text = score.ToString();
 	}
 
@@ -106,7 +111,12 @@ public class GameController : MonoBehaviour {
 			isStillShow = true;
 		}
 	}
-
+	public int getScoreInZone(){
+		return scoreInZone;
+	}
+	public void setScoreInZone(int value){
+		scoreInZone = value;
+	}
 	public void addEnemy(Transform ene) {
 		float x = Random.Range(20, 30) + ene.transform.position.x;
 		float z = Random.Range(20, 40) + ene.transform.position.z;

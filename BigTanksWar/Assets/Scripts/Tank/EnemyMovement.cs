@@ -10,7 +10,7 @@ public class EnemyMovement : TankMovement {
 	public PlayerMovement player;
 
 	void Start() {
-		player = FindObjectOfType(typeof(PlayerMovement))as PlayerMovement;
+		player = FindObjectOfType<PlayerMovement>();
 		timeDelay = Random.Range (6, 9);
 		Transform _player = player.transform;
 		currentDistance = distance(new Vector2(transform.position.x, transform.position.z), new Vector2(_player.position.x, _player.position.z));
