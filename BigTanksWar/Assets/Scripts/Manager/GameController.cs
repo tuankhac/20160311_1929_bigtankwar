@@ -12,9 +12,9 @@ public class GameController : MonoBehaviour {
 	EnemyShooting enemeyShooting;
 	EnemyMovement enemyMovement;
 
+	public GameObject starImage;
 	public GameObject GameOverCanvas;
 	public Text ScoreText;
-	public Text HighScoreText;
 	public Text GameScoreText;
 
 	public GameObject powerFull;
@@ -22,7 +22,8 @@ public class GameController : MonoBehaviour {
 	bool isPowerShow = false;
 	bool isStillShow = false;
 	int score = 0;
-	int highscore;
+	int scoreInZone = 0;
+	int countStar;
 	float timeToShow = 0;
 	Vector3 position = new Vector3(40, 1, 72.9f);
 
@@ -40,24 +41,20 @@ public class GameController : MonoBehaviour {
 		// Disable the prefab so it can be activated when it's required.
 		m_ExplosionParticles.gameObject.SetActive(false);
 
-		clonePowerFull = Instantiate(powerFull);
-		clonePowerFull.gameObject.SetActive(false);
 	}
 	// Use this for initialization
 	void Start() {
 		//this sets timescale to 1 at start.
 		Time.timeScale = 1;
 		//this derives the value of highscore at start.
-		highscore = PlayerPrefs.GetInt("HighScore", 0);
+		countStar = PlayerPrefs.GetInt("StarZone", 0);
 		//this disables GameOverCanves and GameCanvas, enables startCanvas.
 		GameOverCanvas.SetActive(false);
-		//GameCanvas.SetActive (false);
-		//StartCanvas.SetActive (true);
 
-		playerMovement = FindObjectOfType(typeof(PlayerMovement))as PlayerMovement;
-		playerShooting = FindObjectOfType(typeof(PlayerShooting))as PlayerShooting;
-		enemeyShooting = FindObjectOfType(typeof(EnemyShooting))as EnemyShooting;
-		enemyMovement =  FindObjectOfType(typeof(EnemyMovement))as EnemyMovement;
+		playerMovement = FindObjectOfType < PlayerMovement > ();
+		playerShooting = FindObjectOfType < PlayerShooting > ();
+		enemeyShooting = FindObjectOfType < EnemyShooting > ();
+		enemyMovement = FindObjectOfType < EnemyMovement > ();
 	}
 
 	// Update is called once per frame
@@ -73,15 +70,13 @@ public class GameController : MonoBehaviour {
 				if (GameObject.Find("Player") != null) {
 					position.x = Random.Range(0, 10) + GameObject.Find("Player").gameObject.transform.position.x;
 					position.z = Random.Range(0, 10) + GameObject.Find("Player").gameObject.transform.position.z;
-					clonePowerFull.gameObject.transform.position = position;
-					clonePowerFull.gameObject.SetActive(true);
+					clonePowerFull = (GameObject)Instantiate(powerFull, position, Quaternion.identity);
 
 					isPowerShow = false;
 				}
 			} else {
-				//Debug.Log (clonePowerFull.transform.position);
-				if(timeToShow > 30) {
-					clonePowerFull.gameObject.SetActive (false);
+				if (timeToShow > 30) {
+					Destroy(clonePowerFull);
 					isStillShow = false;
 					timeToShow = 0;
 				}
@@ -90,13 +85,20 @@ public class GameController : MonoBehaviour {
 			enemeyShooting.enabled = false;
 			playerMovement.enabled = false;
 			playerShooting.enabled = false;
-			enemyMovement.enabled  = false;
+			enemyMovement.enabled = false;
 		}
 	}
-		
+
 	public void AddScore() {
 		//Add score by 1 and showing that score to GameScoreText.
 		score += 1;
+		if (playerMovement.ePlayerZone != "") {
+			if (Vector3.Distance(GameObject.FindGameObjectWithTag(playerMovement.ePlayerZone).transform.position,
+					playerMovement.transform.position) < 44) {
+				scoreInZone++;
+			} else
+				scoreInZone = 0;
+		}
 		GameScoreText.text = score.ToString();
 	}
 
@@ -107,20 +109,29 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	public int getScoreInZone() {
+		return scoreInZone;
+	}
+	public void setScoreInZone(int value) {
+		scoreInZone = value;
+	}
+
 	public void addEnemy(Transform ene) {
-		float x = Random.Range(20, 30) + ene.transform.position.x;
-		float z = Random.Range(20, 40) + ene.transform.position.z;
-		if (x > 140) x %= 140;
-		if (z > 140) z %= 140;
+		float x = ene.transform.position.x + Random.Range(10, 20) ;
+		float z = ene.transform.position.z + Random.Range(10, 20) ;
+		if (x > 140)
+			x  =  ene.transform.position.x - Random.Range(10, 20) ;
+		if (z > 140)
+			z = ene.transform.position.z - Random.Range (10, 20);
 		Vector3 position = new Vector3(x, 0, z);
-		//Instantiate (enemy, position, Quaternion.identity);
 		ene.transform.position = position;
 		ene.gameObject.SetActive(true);
+		Debug.Log("dag o day" + ene.transform.position);
 	}
 
 	public void GameOver() {
-		if (Advertisement.IsReady () && Random.Range(1, 3) == 2)
-			Advertisement.Show ();
+		if (Advertisement.IsReady() && Random.Range(1, 3) == 2)
+			Advertisement.Show();
 		//Plays GameOverSound
 		AudioSource audio = GetComponent < AudioSource > ();
 		audio.Play();
@@ -130,13 +141,13 @@ public class GameController : MonoBehaviour {
 		GameOverCanvas.SetActive(true);
 		//show the score value on ScoreText
 		ScoreText.text = "Your Score: " + score.ToString();
-		//if score is greater than highscore change the stored value of highscore
-		if (score > highscore) {
-			PlayerPrefs.SetInt("HighScore", score);
-		}
+
 		//show highscore value on HighScoreText
-		highscore = PlayerPrefs.GetInt("HighScore", 0);
-		HighScoreText.text = "High Score: " + highscore.ToString();
+		countStar = PlayerPrefs.GetInt("StarZone", 0);
+		for (int i = 0; i < countStar; i++) {
+			Vector3 v = new Vector3(starImage.transform.position.x + 10 * i, 0, 0);
+			Instantiate(starImage, v, Quaternion.identity);
+		}
 	}
 
 	public void OnDeath(Transform m_Transform) {

@@ -5,18 +5,18 @@ public class EnemyMovement : TankMovement {
 
 	private float timeDelay;
 	public float distanceLookAt = 20f;
-	[HideInInspector] public float currentDistance;
+	[HideInInspector]public float currentDistance;
 
 	public PlayerMovement player;
 
 	void Start() {
-		player = FindObjectOfType(typeof(PlayerMovement))as PlayerMovement;
-		timeDelay = Random.Range (6, 9);
+		player = FindObjectOfType < PlayerMovement > ();
+		timeDelay = Random.Range(6, 9);
 		Transform _player = player.transform;
 		currentDistance = distance(new Vector2(transform.position.x, transform.position.z), new Vector2(_player.position.x, _player.position.z));
 	}
 
-	public bool isInRange () {
+	public bool isInRange() {
 		Transform _player = player.transform;
 		currentDistance = distance(new Vector2(transform.position.x, transform.position.z), new Vector2(_player.position.x, _player.position.z));
 		if (currentDistance < distanceLookAt)
@@ -30,20 +30,20 @@ public class EnemyMovement : TankMovement {
 			Transform _player = player.transform;
 			timeUpdate += Time.deltaTime;
 			if (timeUpdate > timeDelay) {
-				timeDelay = Random.Range (6, 9);
+				timeDelay = Random.Range(6, 9);
 				timeUpdate = 0;
 			}
-			if (isInRange ())
-				this.transform.LookAt (_player);
+			if (isInRange())
+				this.transform.LookAt(_player);
 			else {
-				enemyTurn ();
+				enemyTurn();
 			}
-			enemyMove ();
+			enemyMove();
 		}
 	}
 
 	private void enemyTurn() {
-	
+
 		// Determine the number of degrees to be turned based on the input, speed and time between frames.
 		float turn = 0;
 		if (timeUpdate > 0.55f && timeUpdate < 0.95f) {
@@ -52,7 +52,7 @@ public class EnemyMovement : TankMovement {
 			turn = (Random.Range(1, 7));
 		} else
 			turn = 0;
-	
+
 		// Make this into a rotation in the y axis.
 		Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
 		// Apply this rotation to the rigidbody's rotation.
@@ -61,7 +61,7 @@ public class EnemyMovement : TankMovement {
 	}
 
 	private void enemyMove() {
-		
+
 		// Create a vector in the direction the tank is facing with a magnitude based on the input, speed and the time between frames.
 		if (timeUpdate > 1.9f && timeUpdate < timeDelay / 2) {
 			Vector3 _movement = transform.forward * (Random.value + 1f) / 6;
