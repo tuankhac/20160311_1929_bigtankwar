@@ -2,8 +2,8 @@
 
 public class PlayerShooting : TankShooting {
 
-	void Start () {
-		Fire ();
+	void Start() {
+		Fire();
 	}
 
 	public void touchDown() {

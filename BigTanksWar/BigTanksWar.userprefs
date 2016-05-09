@@ -1,10 +1,18 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Manager\EnemyManager1.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Manager\GameController.cs">
     <Files>
+<<<<<<< HEAD
       <File FileName="Assets\Scripts\Zone\GetZoneByPlayer.cs" Line="14" Column="37" />
       <File FileName="Assets\Scripts\Manager\EnemyManager1.cs" Line="10" Column="24" />
       <File FileName="Assets\Scripts\Manager\GameController.cs" Line="1" Column="1" />
+=======
+      <File FileName="Assets\Scripts\Manager\GameController.cs" Line="25" Column="2" />
+      <File FileName="Assets\Scripts\Manager\EnemyManager.cs" Line="19" Column="36" />
+      <File FileName="Assets\Scripts\Zone\GetZoneByPlayer.cs" Line="20" Column="64" />
+      <File FileName="Assets\Scripts\Manager\Manager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Tank\TankHealth.cs" Line="54" Column="1" />
+>>>>>>> 6143287d19c694e6e1d16e1f98372a0afff52c88
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

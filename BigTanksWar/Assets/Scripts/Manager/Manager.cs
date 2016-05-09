@@ -12,6 +12,6 @@ public class Manager : MonoBehaviour {
 	}
 	public void Restart() {
 		GameController.isPause = false;
-		SceneManager.LoadSceneAsync (1);
+		SceneManager.LoadSceneAsync(1);
 	}
 }
