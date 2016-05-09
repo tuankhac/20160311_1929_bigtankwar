@@ -100,6 +100,10 @@ public class GameController : MonoBehaviour {
 				scoreInZone = 0;
 		}
 		GameScoreText.text = score.ToString();
+
+		int _time = (int)Time.time;
+		if (Advertisement.IsReady() && score % 7 ==0 && _time > 900)
+			Advertisement.Show();
 	}
 
 	public void RequestPower(float statePower) {
