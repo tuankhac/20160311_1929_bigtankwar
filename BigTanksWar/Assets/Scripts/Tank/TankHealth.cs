@@ -51,7 +51,6 @@ public class TankHealth : MonoBehaviour {
 			}
 			if (other.tag == "Enemy") {
 				GameObject.FindGameObjectWithTag(F_gameController).SendMessage("AddScore");
-				Debug.Log("vi tri ban dau" + other.gameObject.transform.position);
 				GameObject.FindGameObjectWithTag(F_gameController).SendMessage("addEnemy", hiddenGameObject);
 			}
 		}

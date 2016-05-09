@@ -7,14 +7,16 @@ public class EnemyManager : MonoBehaviour {
 	public string enemyZone;
 	private string enemyGlobal = "EnemyGlobal";
 	PlayerMovement playerMovement;
-
+	GameController gameController;
 	void Start() {
 		playerMovement = FindObjectOfType < PlayerMovement > ();
+		gameController = FindObjectOfType<GameController> ();
 	}
 	void Update() {
 		if (isGlobal() && !isMove) {
 			init(enemyGlobal);
 			isMove = true;
+			gameController.setScoreInZone (0);
 			playerMovement.ePlayerZone = "";
 		}
 		if (Vector3.Distance(transform.position, playerMovement.transform.position) < maxInZone && isMove) {

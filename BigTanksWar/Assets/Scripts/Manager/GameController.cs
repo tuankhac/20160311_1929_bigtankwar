@@ -6,13 +6,12 @@ using UnityEngine.Advertisements;
 public class GameController : MonoBehaviour {
 
 	public static bool isPause = false;
-
+	public GameObject[] arrStar;
 	PlayerMovement playerMovement;
 	PlayerShooting playerShooting;
 	EnemyShooting enemeyShooting;
 	EnemyMovement enemyMovement;
 
-	public GameObject starImage;
 	public GameObject GameOverCanvas;
 	public Text ScoreText;
 	public Text GameScoreText;
@@ -23,7 +22,7 @@ public class GameController : MonoBehaviour {
 	bool isStillShow = false;
 	int score = 0;
 	int scoreInZone = 0;
-	int countStar;
+	public int countStar;
 	float timeToShow = 0;
 	Vector3 position = new Vector3(40, 1, 72.9f);
 
@@ -41,13 +40,14 @@ public class GameController : MonoBehaviour {
 		// Disable the prefab so it can be activated when it's required.
 		m_ExplosionParticles.gameObject.SetActive(false);
 
+		for (int i = 0; i < arrStar.Length; i++) {
+			arrStar [i].SetActive (false);
+		}
 	}
 	// Use this for initialization
 	void Start() {
 		//this sets timescale to 1 at start.
 		Time.timeScale = 1;
-		//this derives the value of highscore at start.
-		countStar = PlayerPrefs.GetInt("StarZone", 0);
 		//this disables GameOverCanves and GameCanvas, enables startCanvas.
 		GameOverCanvas.SetActive(false);
 
@@ -115,18 +115,21 @@ public class GameController : MonoBehaviour {
 	public void setScoreInZone(int value) {
 		scoreInZone = value;
 	}
+	public int getCountStar() {
+		return countStar;
+	}
 
+	int min = 20, max = 30;
 	public void addEnemy(Transform ene) {
-		float x = ene.transform.position.x + Random.Range(10, 20) ;
-		float z = ene.transform.position.z + Random.Range(10, 20) ;
+		float x = ene.transform.position.x + Random.Range(min, max) ;
+		float z = ene.transform.position.z + Random.Range(min, max) ;
 		if (x > 140)
-			x  =  ene.transform.position.x - Random.Range(10, 20) ;
+			x  =  ene.transform.position.x - Random.Range(min, max) ;
 		if (z > 140)
-			z = ene.transform.position.z - Random.Range (10, 20);
+			z = ene.transform.position.z - Random.Range (min, max);
 		Vector3 position = new Vector3(x, 0, z);
 		ene.transform.position = position;
 		ene.gameObject.SetActive(true);
-		Debug.Log("dag o day" + ene.transform.position);
 	}
 
 	public void GameOver() {
@@ -143,10 +146,8 @@ public class GameController : MonoBehaviour {
 		ScoreText.text = "Your Score: " + score.ToString();
 
 		//show highscore value on HighScoreText
-		countStar = PlayerPrefs.GetInt("StarZone", 0);
 		for (int i = 0; i < countStar; i++) {
-			Vector3 v = new Vector3(starImage.transform.position.x + 10 * i, 0, 0);
-			Instantiate(starImage, v, Quaternion.identity);
+			arrStar [i].SetActive (true);
 		}
 	}
 
