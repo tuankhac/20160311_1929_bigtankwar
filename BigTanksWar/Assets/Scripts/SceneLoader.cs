@@ -13,16 +13,17 @@ public class SceneLoader : MonoBehaviour {
 			load_scene = true;
 
 			text_loading.text = "Loading...";
-			StartCoroutine (LoadNewScene ());
+
+			SceneManager.LoadSceneAsync (1);
 		}
 	}
 
 	public void setLoadGameplay () {
 		is_load_gameplay = true;
 	}
-
-	IEnumerator LoadNewScene () {
-		yield return new WaitForSeconds (3);
-		SceneManager.LoadSceneAsync (1);
-	}
+//
+//	IEnumerator LoadNewScene () {
+//		yield return new WaitForSeconds (3);
+//		SceneManager.LoadSceneAsync (1);
+//	}
 }
