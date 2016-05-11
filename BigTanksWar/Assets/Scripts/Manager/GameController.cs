@@ -22,6 +22,7 @@ public class GameController : MonoBehaviour {
 	bool isStillShow = false;
 	int score = 0;
 	int scoreInZone = 0;
+	bool isOccupy = false;
 	public int countStar;
 	float timeToShow = 0;
 	Vector3 position = new Vector3(40, 1, 72.9f);
@@ -81,6 +82,12 @@ public class GameController : MonoBehaviour {
 					timeToShow = 0;
 				}
 			}
+
+			if(getOccupy()){
+				GameObject []objs = GameObject.FindGameObjectsWithTag (playerMovement.ePlayerZone);
+				foreach (GameObject obj in objs)
+					Destroy (obj);
+			}
 		} else {
 			enemeyShooting.enabled = false;
 			playerMovement.enabled = false;
@@ -122,7 +129,12 @@ public class GameController : MonoBehaviour {
 	public int getCountStar() {
 		return countStar;
 	}
-
+	bool getOccupy(){
+		return isOccupy;
+	}
+	public void setOccupy(bool value){
+		isOccupy = value;
+	}
 	int min = 20, max = 30;
 	public void addEnemy(Transform ene) {
 		float x = ene.transform.position.x + Random.Range(min, max) ;

@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class GetZoneByPlayer : MonoBehaviour {
-	const int maxEnemy = 5;
+	const int maxEnemy = 1;
 	public GameObject player;
 	public ParticleSystem particle;
 
@@ -23,6 +23,7 @@ public class GetZoneByPlayer : MonoBehaviour {
 				gameController.setScoreInZone(0);
 				gameController.countStar++;
 				PlayerPrefs.SetInt("StarZone", gameController.countStar);
+				gameController.setOccupy (true);
 			Debug.Log ("countStr " + gameController.countStar);
 			}
 
