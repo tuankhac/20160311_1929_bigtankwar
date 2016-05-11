@@ -1,10 +1,15 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Manager\EnemyManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Tank\PlayerMovement.cs">
     <Files>
-      <File FileName="Assets\Scripts\Manager\EnemyManager.cs" Line="37" Column="65" />
-      <File FileName="Assets\Scripts\Manager\GameController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Manager\EnemyManager.cs" Line="21" Column="37" />
+      <File FileName="Assets\Scripts\Manager\GameController.cs" Line="87" Column="18" />
       <File FileName="Assets\Scripts\RotateY.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Zone\GetZoneByPlayer.cs" Line="6" Column="24" />
+      <File FileName="Assets\Scripts\Manager\Manager.cs" Line="15" Column="32" />
+      <File FileName="Assets\Scripts\Camera\View.cs" Line="7" Column="44" />
+      <File FileName="Assets\Scripts\Tank\PlayerMovement.cs" Line="14" Column="2" />
+      <File FileName="Assets\Scripts\Tank\TankMovement.cs" Line="5" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
