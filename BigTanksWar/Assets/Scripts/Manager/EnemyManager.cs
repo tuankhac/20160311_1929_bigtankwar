@@ -18,6 +18,7 @@ public class EnemyManager : MonoBehaviour {
 			isMove = true;
 			gameController.setScoreInZone (0);
 			playerMovement.ePlayerZone = "";
+			gameController.setOccupy (false);
 		}
 		if (Vector3.Distance(transform.position, playerMovement.transform.position) < maxInZone && isMove) {
 			init(enemyZone);
